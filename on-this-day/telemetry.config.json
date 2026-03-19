@@ -1,0 +1,14 @@
+{
+  "name": "on-this-day",
+  "description": "an aesthetic digital signage widget that displays interesting facts about the current date from years past. create categories that the operator can select, and. Ex. On this day (Mar 19,  19) this famous person died, this landmark was created, etc",
+  "logoPath": "assets/tos-app.svg",
+  "version": "0.1.0",
+  "mountPoints": {
+    "render": "/render",
+    "settings": "/settings"
+  },
+  "devServer": {
+    "runCommand": "vite --port 3000",
+    "url": "http://localhost:3000"
+  }
+}
