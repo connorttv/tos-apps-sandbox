@@ -1,0 +1,13 @@
+{
+  "name": "telemetryos-on-this-day-app",
+  "thumbnailPath": "assets/tos-app.svg",
+  "version": "0.1.0",
+  "mountPoints": {
+    "render": "/render",
+    "settings": "/settings"
+  },
+  "devServer": {
+    "runCommand": "vite --port 3000",
+    "url": "http://localhost:3000"
+  }
+}

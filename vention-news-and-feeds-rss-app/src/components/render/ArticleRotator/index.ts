@@ -1,0 +1,1 @@
+export { ArticleRotator } from './ArticleRotator'

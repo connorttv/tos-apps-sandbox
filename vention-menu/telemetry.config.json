@@ -1,0 +1,14 @@
+{
+  "name": "tele-menu",
+  "thumbnailPath": "assets/tos-app.svg",
+  "version": "0.1.0",
+  "mountPoints": {
+    "render": "/render",
+    "settings": "/settings"
+  },
+  "displayName": "Menu Admin Board",
+  "devServer": {
+    "runCommand": "vite --port 3000",
+    "url": "http://localhost:3000"
+  }
+}

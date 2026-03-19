@@ -1,0 +1,7 @@
+.feed-selection-category {
+  margin-bottom: 1.5rem;
+}
+
+.feed-selection-category:last-child {
+  margin-bottom: 0;
+}

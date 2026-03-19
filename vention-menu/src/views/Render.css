@@ -1,0 +1,533 @@
+/* ===========================================
+   MENU BOARD RENDER STYLES
+   Matching Figma design with circular images
+   =========================================== */
+
+
+
+
+/* ===========================================
+   MAIN RENDER LAYOUT
+   =========================================== */
+
+.render {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Dark mode - black content background, white text */
+.render--dark .render__content {
+  background-color: #000000;
+}
+
+.render--dark .menu-item__name,
+.render--dark .menu-item__description,
+.render--dark .menu-section__header {
+  color: #ffffff;
+}
+
+/* Light mode - white content background, dark text */
+.render--light .render__content {
+  background-color: #ffffff;
+}
+
+.render--light .menu-item__name,
+.render--light .menu-item__description,
+.render--light .menu-section__header {
+  color: #1a1a1a;
+}
+
+/* Landscape layout (default) - sidebar + content */
+.render--landscape {
+  flex-direction: row;
+}
+
+.render--landscape .sidebar {
+  width: 28%;
+  min-width: 18rem;
+  max-width: 26rem;
+}
+
+.render--landscape .render__content {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Portrait layout */
+.render--portrait {
+  flex-direction: column;
+}
+
+.render--portrait .sidebar {
+  height: 30%;
+  width: 100%;
+}
+
+.render--portrait .render__content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Large Square */
+.render--large-square {
+  flex-direction: row;
+}
+
+.render--large-square .sidebar {
+  width: 35%;
+}
+
+.render--large-square .render__content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Small Square */
+.render--small-square {
+  flex-direction: column;
+}
+
+.render--small-square .sidebar {
+  display: none;
+}
+
+.render--small-square .render__content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Landscape Bar */
+.render--landscape-bar {
+  flex-direction: row;
+}
+
+.render--landscape-bar .sidebar {
+  display: none;
+}
+
+.render--landscape-bar .render__content {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Portrait Bar */
+.render--portrait-bar {
+  flex-direction: column;
+}
+
+.render--portrait-bar .sidebar {
+  display: none;
+}
+
+.render--portrait-bar .render__content {
+  flex: 1;
+  padding: 0.75rem;
+}
+
+/* Chiron Banner (extreme horizontal) */
+.render--chiron-banner {
+  flex-direction: row;
+}
+
+.render--chiron-banner .sidebar {
+  display: none;
+}
+
+.render--chiron-banner .render__content {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Skyscraper (extreme vertical) */
+.render--skyscraper {
+  flex-direction: column;
+}
+
+.render--skyscraper .sidebar {
+  display: none;
+}
+
+.render--skyscraper .render__content {
+  flex: 1;
+  padding: 0.75rem 0.5rem;
+}
+
+/* ===========================================
+   SIDEBAR - Food image background
+   =========================================== */
+
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.sidebar__background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar__content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.sidebar__logo {
+  margin-bottom: 1rem;
+  max-width: 60%;
+}
+
+.sidebar__logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.sidebar__promo {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.sidebar__spacer {
+  flex: 1;
+}
+
+.sidebar__text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  position: relative;
+  width: 100%;
+  padding: 0 1rem;
+  overflow: hidden;
+  /* Prevent overflow */
+}
+
+.sidebar__menu-label {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  border-radius: 0.3rem;
+  text-align: left;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar__menu-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+  margin-top: -0.3rem;
+  border-radius: 0.3rem;
+  text-align: left;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Window rounded corners - applied to entire render container */
+.render--rounded-corners {
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+/* Apply rounded corners to both sidebar and content area */
+.render--rounded-corners .sidebar {
+  border-radius: 2rem 0 0 2rem;
+  /* Rounded on left side */
+}
+
+.render--rounded-corners .render__content {
+  border-radius: 0 2rem 2rem 0;
+  /* Rounded on right side */
+}
+
+/* ===========================================
+   MENU GRID
+   =========================================== */
+
+.menu-grid {
+  display: grid;
+  gap: 1rem 1.5rem;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+}
+
+/* ===========================================
+   MENU ITEM - Circular design
+   =========================================== */
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  overflow: visible;
+}
+
+.menu-item--featured {
+  /* Featured items could have glow or border */
+}
+
+/* P1-only item (extreme layouts) */
+.menu-item--p1-only {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+}
+
+.menu-item--p1-only .menu-item__name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.menu-item--p1-only .menu-item__price--inline {
+  font-size: 1rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 700;
+}
+
+/* Image wrapper for positioning featured badge */
+.menu-item__image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Featured badge on top-left edge of circle */
+.menu-item__featured-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: -0.3rem;
+  z-index: 10;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+}
+
+/* Circular image container */
+.menu-item__image-container {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.menu-item__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu-item__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+}
+
+/* Item info */
+.menu-item__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+/* Price badge - positioned below image */
+.menu-item__price {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  margin-top: -1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.menu-item__name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0 0.25rem 0;
+  color: #ffffff;
+  line-height: 1.2;
+  max-width: 10rem;
+}
+
+.menu-item__description {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.3;
+  max-width: 10rem;
+  /* Limit to 2-3 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* ===========================================
+   RESPONSIVE ADJUSTMENTS
+   =========================================== */
+
+/* Larger layouts - bigger images */
+.render--landscape .menu-item__image-container,
+.render--large-square .menu-item__image-container {
+  width: 9rem;
+  height: 9rem;
+}
+
+.render--landscape .menu-item__name,
+.render--large-square .menu-item__name {
+  font-size: 1.2rem;
+}
+
+.render--landscape .menu-item__price,
+.render--large-square .menu-item__price {
+  font-size: 1.1rem;
+  padding: 0.35rem 1rem;
+}
+
+/* Portrait adjustments */
+.render--portrait .menu-item__image-container {
+  width: 7rem;
+  height: 7rem;
+}
+
+.render--portrait .menu-item__name {
+  font-size: 1rem;
+}
+
+.render--portrait .menu-item__price {
+  font-size: 0.9rem;
+}
+
+.render--portrait .menu-item__description {
+  display: none;
+}
+
+/* Small layouts */
+.render--small-square .menu-item__image-container,
+.render--landscape-bar .menu-item__image-container,
+.render--portrait-bar .menu-item__image-container {
+  width: 5rem;
+  height: 5rem;
+}
+
+.render--small-square .menu-item__name,
+.render--landscape-bar .menu-item__name,
+.render--portrait-bar .menu-item__name {
+  font-size: 0.9rem;
+  max-width: 6rem;
+}
+
+.render--small-square .menu-item__price,
+.render--landscape-bar .menu-item__price,
+.render--portrait-bar .menu-item__price {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  margin-top: -1rem;
+}
+
+.render--small-square .menu-item__description,
+.render--landscape-bar .menu-item__description,
+.render--portrait-bar .menu-item__description {
+  display: none;
+}
+
+/* Extreme layouts */
+.render--chiron-banner .menu-grid--p1-only {
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.render--skyscraper .menu-grid--p1-only {
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+}
+
+/* Sidebar portrait mode */
+.render--portrait .sidebar__menu-label {
+  font-size: 2rem;
+}
+
+.render--portrait .sidebar__menu-text {
+  font-size: 1.5rem;
+}

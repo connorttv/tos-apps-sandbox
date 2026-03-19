@@ -1,0 +1,175 @@
+## Global Rules (All Apps)
+ 
+### Architecture & Platform Boundaries
+- Treat every app as a TelemetryOS application with two strict mount points:
+  - `/render` — viewer-facing digital signage UI
+  - `/settings` — Studio/admin configuration UI
+- `/render` and `/settings` must be separate entry components.
+- Do not share UI components directly between Render and Settings.
+- Shared logic must live in typed config models, utilities, or constants.
+- Assume a digital signage runtime:
+  - large screens
+  - long viewing distance
+  - no user interaction
+- Never add viewer-side interactions (buttons, hover states, scrolling) in `/render`.
+- Use instance storage as the single source of truth for configuration.
+- Render must subscribe to instance storage updates; never read Settings UI state directly.
+ 
+### Responsive Scaling & Sizing
+- Use **REM units only** for all sizing, spacing, and typography in `/render`.
+- Apply UI scaling (e.g. `useUiScaleToSetRem`) at the root of the Render app.
+- Typography minimums for signage:
+  - Primary text: ≥ 6rem
+  - Secondary text: ≥ 3rem
+  - Tertiary text: ≥ 1.5rem
+- Maintain safe zones:
+  - minimum 3rem padding from all edges
+- Layouts must adapt to all standard TelemetryOS shapes:
+  - Landscape
+  - Portrait
+  - Large Square
+  - Small Square
+  - Landscape Bar
+  - Portrait Bar
+  - Chiron Banner
+  - Skyscraper
+- Respect content priority levels (P1, P2, P3) when space is constrained.
+ 
+### Componentization & Code Structure
+- Each distinct feature must be its own component.
+- Keep view files (`Render.tsx`, `Settings.tsx`) thin and declarative.
+- Call SDK `configure(...)` exactly once at the app entry point.
+- Centralize:
+  - storage keys
+  - shared types
+  - constants
+- Parsing, formatting, and data normalization must live in `utils/`, never inside components.
+ 
+### Visual Rules for Digital Signage
+- Each layout must have a single clear focal point.
+- Avoid dense multi-column layouts unless the zone is very large.
+- Maintain high contrast for readability.
+- If using image or video backgrounds, always apply an overlay for legibility.
+- Assume background modes may include:
+  - solid
+  - gradient
+  - image
+  - video
+ 
+### Settings UI Constraints
+- Only use supported Settings primitives:
+  - text input
+  - textarea
+  - select/dropdown
+  - slider
+  - color picker
+  - switch / checkbox / radio
+  - section heading
+  - divider
+  - bordered box
+  - media picker
+  - button
+- Do not implement custom widgets, tabs, accordions, or rich editors.
+ 
+### Reliability & Runtime Behavior
+- Prefer fail-soft rendering.
+- If part of the data fails, render remaining valid content.
+- Network requests must use platform-safe mechanisms.
+- Background workers must be DOM-free.
+- Render must never block on network requests.
+ 
+ 
+---
+ 
+## App-Specific Rules — News Feeds / RSS
+ 
+### Instance Storage & Data Model
+- Persist configuration and data in instance storage only.
+- Required storage keys:
+  - `selectedFeeds`: string[]
+  - `cachedArticles`: Article[]
+  - `lastUpdatedAt`: timestamp
+  - `isOffline`: boolean
+  - `settings`:
+    - `articleDurationSec`
+    - `refreshIntervalMin`
+    - `transitionStyle`
+- Render must subscribe to storage updates.
+- Settings may only update configuration values.
+ 
+### Feed Fetching Rules
+- RSS/Atom feeds must be fetched using TelemetryOS Proxy API.
+- Never use direct `fetch(url)` for external feeds.
+- Enforce a fetch timeout (e.g. 30 seconds).
+- Fetching must run in a background worker.
+- Default refresh interval: 15 minutes.
+- Allowed refresh interval range: 5–60 minutes.
+ 
+### Parsing & Normalization
+- Normalize all feed items into a single internal `Article` shape.
+- Required fields:
+  - title
+  - description or summary
+  - link
+  - publishedAt
+  - sourceId
+- Optional fields:
+  - imageUrl
+  - sourceLogoUrl
+- Skip articles missing a headline or description.
+- Truncate overly long text to preserve layout stability.
+ 
+### Rotation & Transitions
+- Render must display one article at a time.
+- Default article duration: 10 seconds.
+- Allowed duration range: 5–60 seconds.
+- Articles rotate continuously in a loop.
+- New content must not interrupt the currently displayed article.
+- Supported transitions:
+  - fade
+  - slide
+  - cut
+ 
+### Offline & Partial Failure Behavior
+- If network fails:
+  - continue showing cached articles
+  - display a subtle “Content may not be current” indicator
+- If some feeds fail:
+  - skip failed feeds
+  - continue rotating available content
+- If all feeds fail:
+  - show cached content only
+- If no feeds are selected:
+  - render an empty state message instructing to configure feeds in Settings
+ 
+### Render Layout Rules
+- Article card may include:
+  - headline (primary focal point)
+  - short summary (2–3 sentences)
+  - article image (optional)
+  - source logo
+  - relative timestamp
+- Content priority under tight space:
+  - P1: headline + source or timestamp
+  - P2: summary
+  - P3: image and decorative elements
+ 
+### Settings Panel Rules
+- Feed selection UI must:
+  - show curated feed list
+  - group feeds by category
+  - support checkbox selection
+  - support Select All / Deselect All
+  - allow category filtering
+- Timing controls must exist:
+  - article duration (5–60s)
+  - refresh interval (5–60 min)
+- Transition style selector must exist:
+  - fade
+  - slide
+  - cut
+ 
+### Curated Feeds Constraint
+- Feed list is fixed and curated.
+- Do not allow arbitrary RSS URL input.
+- Custom URL support belongs to a separate app.

@@ -1,0 +1,9 @@
+.time-ago {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.time-ago__value {
+  font-weight: 600;
+}

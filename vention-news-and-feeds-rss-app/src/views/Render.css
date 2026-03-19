@@ -1,0 +1,11 @@
+.random-string-display {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  font-size: 2rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  z-index: 100;
+}

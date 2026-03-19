@@ -1,0 +1,49 @@
+.article-rotator {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.article-rotator__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Fade transition */
+.article-rotator--fade .article-rotator__slide--fade-out {
+  opacity: 0;
+}
+
+/* Slide transition - train effect: both articles move left */
+/* Current article slides out to the left */
+.article-rotator--slide .article-rotator__slide--out {
+  transform: translateX(-100%);
+}
+
+/* Next article starts from right (100%) and slides to center (0%) - also moving left */
+.article-rotator--slide .article-rotator__slide--in {
+  transform: translateX(100%);
+}
+
+.article-rotator--slide .article-rotator__slide--in {
+  animation: slideInFromRight 0.3s ease-in-out forwards;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+/* Cut transition - no animation, instant switch */
+.article-rotator--cut .article-rotator__slide {
+  transition: none;
+}

@@ -1,0 +1,28 @@
+.source-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.source-badge__logo {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  border-radius: 0.25rem;
+}
+
+.source-badge__logo-placeholder {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.source-badge__name {
+  font-size: 2rem;
+  font-weight: 600;
+}

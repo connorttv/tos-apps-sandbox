@@ -1,0 +1,236 @@
+/* All 8 layout shapes: 16:9, 9:16, square large/small, 3:1, 1:3, 10:1, 1:10 */
+
+.render {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.render--empty {
+  align-items: center;
+  justify-content: center;
+  background: hsl(212 28% 10%);
+  color: hsl(210 40% 88%);
+  padding: 3rem;
+}
+
+.render__empty-text {
+  font-size: 3rem;
+  margin: 0;
+}
+
+/* Base slide: 3rem safe padding, no interaction, high contrast */
+.render__slide {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: hsl(0 0% 100%);
+  text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.5);
+}
+
+/* Portrait layouts: stack vertically */
+.render--portrait-9-16 .render__content,
+.render--portrait-bar-1-3 .render__content,
+.render--skyscraper-1-10 .render__content {
+  flex-direction: column;
+}
+
+/* Landscape bar (3:1) and Chiron (10:1): horizontal, compact */
+.render--landscape-bar-3-1 .render__content,
+.render--chiron-10-1 .render__content {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.render--landscape-bar-3-1 .render__title,
+.render--chiron-10-1 .render__title {
+  margin-right: 1rem;
+}
+
+.render--landscape-bar-3-1 .render__primary,
+.render--chiron-10-1 .render__primary {
+  -webkit-line-clamp: 1;
+}
+
+/* Extreme: P1 only, single line feel where possible */
+.render--chiron-10-1 .render__slide,
+.render--skyscraper-1-10 .render__slide {
+  padding: 3rem 2rem;
+}
+
+.render--skyscraper-1-10 .render__content {
+  max-width: 100%;
+}
+
+.render__slide--fade {
+  animation: render-fade-in 0.5s ease-out;
+}
+
+.render__slide--slide {
+  animation: render-slide-in 0.4s ease-out;
+}
+
+.render__slide--instant {
+  /* no animation */
+}
+
+@keyframes render-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes render-slide-in {
+  from {
+    transform: translateX(8%);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.render__media-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.render__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.render__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.render__content {
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* P1: title >= 6rem, primary >= 6rem */
+.render__title {
+  font-size: 6rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.render__primary {
+  font-size: 6rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* P2: secondary >= 3rem */
+.render__secondary {
+  font-size: 3rem;
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.95;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* P3: body >= 1.5rem (tertiary) */
+.render__body {
+  margin: 0;
+  max-width: 80rem;
+  width: 100%;
+}
+
+.render__body-inner {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.render__body-inner h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+}
+
+.render__body-inner h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.render__body-inner ul,
+.render__body ul {
+  margin: 0.5rem 0;
+  padding-left: 2rem;
+  list-style: disc;
+}
+
+.render__body-inner li,
+.render__body li {
+  font-size: 1.5rem;
+  margin: 0.25rem 0;
+}
+
+.render__progress {
+  flex-shrink: 0;
+  padding: 2rem 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+.render__progress-bar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.render__progress-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.render__progress-dot--active {
+  background: rgba(255, 255, 255, 0.95);
+  transform: scale(1.2);
+}
